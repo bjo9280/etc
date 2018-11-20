@@ -44,3 +44,13 @@ def txt_maker(path):
             fo.write('/JPEGImages/' + string_ + '.jpg /SegmentationClassAug/' + string_ + '.png\n')
     fi.close()
     fo.close()
+
+def visualize_maker(image_name):
+    background = Image.open('{}_image.png'.format(image_name))
+    overlay = Image.open('{}_prediction.png'.format(image_name))
+
+    background = background.convert("RGBA")
+    overlay = overlay.convert("RGBA")
+
+    new_img = Image.blend(background, overlay, 0.3)
+    new_img.save("{}.png".format(image_name), "PNG")
