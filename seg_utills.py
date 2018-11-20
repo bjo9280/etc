@@ -33,3 +33,14 @@ def convert_rgb_to_grayscale(folder):
             stacked_img = np.stack((in_,) * 3, -1)
             cv2.imwrite(folder + "SegmentationClassAug/{}".format(fname), stacked_img)
 
+def txt_maker(path):
+    fi = open('train.txt', 'w')
+    fo = open('train2.txt', 'w')
+
+    for root, dirs, files in os.walk(path):
+        for fname in files:
+            string_ = os.path.splitext(fname)[0]
+            fi.write(string_ + '\n')
+            fo.write('/JPEGImages/' + string_ + '.jpg /SegmentationClassAug/' + string_ + '.png\n')
+    fi.close()
+    fo.close()
