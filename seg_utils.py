@@ -1,17 +1,20 @@
-from PIL import Image
-import vis
-from scipy.misc import imread
 import os
-import numpy as np
 import re
-import cv2
 
-#change the name of output images when option is --also_save_raw_predictions=True
+import cv2
+import numpy as np
+from PIL import Image
+from scipy.misc import imread
+
+import vis
+
+
+# change the name of output images when option is --also_save_raw_predictions=True
 def dequote(fname):
     fname = os.path.splitext(fname)[0]
-    parse = re.sub('[b]', '', fname) #remove b
+    parse = re.sub('[b]', '', fname)  # remove b
 
-    if(parse[0] == parse[-1]) and parse.startswith(("'",'"')):
+    if (parse[0] == parse[-1]) and parse.startswith(("'", '"')):
         return parse[1:-1]
     return parse
 
@@ -19,19 +22,20 @@ def dequote(fname):
 def convert_grayscale_to_rgb(folder, num_classes):
     for root, dirs, files in os.walk(folder):
         for fname in files:
-            im = imread(folder+fname)
+            im = imread(folder + fname)
             voc_palette = vis.make_palette(num_classes)
             out_im = Image.fromarray(vis.color_seg(im, voc_palette))
             print(dequote(fname))
             out_im.save("{}{}_prediction.png".format(folder, dequote(fname)))
 
+
 def convert_rgb_to_grayscale(folder):
-    for root, dirs, files in os.walk(folder + 'SegmentationClassPNG'):
+    for root, dirs, files in os.walk('{}/SegmentationClassPNG'.format(folder)):
         for fname in files:
-            im = Image.open(folder + "SegmentationClassPNG/" + fname)
+            im = Image.open("{}/SegmentationClassPNG/{}".format(folder, fname))
             in_ = np.array(im, dtype=np.float32)
-            stacked_img = np.stack((in_,) * 3, -1)
-            cv2.imwrite(folder + "SegmentationClassAug/{}".format(fname), stacked_img)
+            cv2.imwrite("{}/SegmentationClassAug/{}".format(folder, fname), in_)
+
 
 def txt_maker(path):
     fi = open('train.txt', 'w')
@@ -44,6 +48,7 @@ def txt_maker(path):
             fo.write('/JPEGImages/' + string_ + '.jpg /SegmentationClassAug/' + string_ + '.png\n')
     fi.close()
     fo.close()
+
 
 def visualize_maker(image_name):
     background = Image.open('{}_image.png'.format(image_name))
