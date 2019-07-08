@@ -18,19 +18,19 @@ def compute_iou(y_pred, y_true):
         true_list.append(i)
     #remove overlap
     label = list(set(true_list))
-    print label
+    print(label)
     current = confusion_matrix(y_true, y_pred)
-    print current
+    print(current)
     # compute mean iounumpy to tuple
     intersection = np.diag(current)
-    print intersection
+    print(intersection)
     ground_truth_set = current.sum(axis=1)
-    print ground_truth_set
+    print(ground_truth_set)
     predicted_set = current.sum(axis=0)
-    print predicted_set
+    print(predicted_set)
     union = ground_truth_set + predicted_set - intersection
     IoU = intersection / union.astype(np.float32)
-    print np.mean(IoU)
+    print(np.mean(IoU))
 
 def make_image_list(image_name):
     img_color = cv2.imread('{}'.format(image_name), cv2.IMREAD_COLOR)
