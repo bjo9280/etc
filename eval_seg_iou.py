@@ -10,7 +10,7 @@ def compute_iou(y_pred, y_true):
 
     #ytrue, ypred is a flatten vector
     #y_pred = y_pred.flatten()
-    #y_true = y_true.flatten()
+    #y_true = y_true.flatten()#
 
     true_list = []
     for i in y_true:
