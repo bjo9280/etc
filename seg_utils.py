@@ -17,7 +17,7 @@ def dequote(fname):
     if (parse[0] == parse[-1]) and parse.startswith(("'", '"')):
         return parse[1:-1]
     return parse
-#
+##
 
 def convert_grayscale_to_rgb(folder, num_classes):
     for root, dirs, files in os.walk(folder):
