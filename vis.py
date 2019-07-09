@@ -22,7 +22,7 @@ def make_palette(num_classes):
             palette[k, 2] |= (((label >> 2) & 1) << (7 - i))
             label >>= 3
             i += 1
-
+    #
     return palette
 
 def color_seg(seg, palette):
