@@ -1,7 +1,7 @@
 from sklearn.metrics import confusion_matrix
 import numpy as np
 import cv2
-import vis
+import seg_vis
 
 
 np.set_printoptions(threshold=np.inf, linewidth=np.inf)
@@ -48,7 +48,7 @@ def make_image_list(image_name):
 if __name__ == "__main__":
 
     num_classes = 21
-    palettes = vis.make_palette(num_classes)
+    palettes = seg_vis.make_palette(num_classes)
     palettes_dic = {tuple(palettes[i]): i for i in range(num_classes)}
 
     image_name = 'image'

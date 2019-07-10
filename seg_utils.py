@@ -6,7 +6,7 @@ import numpy as np
 from PIL import Image
 from scipy.misc import imread
 
-import vis
+import seg_vis
 
 
 # change the name of output images when option is --also_save_raw_predictions=True
@@ -23,8 +23,8 @@ def convert_grayscale_to_rgb(folder, num_classes):
     for root, dirs, files in os.walk(folder):
         for fname in files:
             im = imread(folder + fname)
-            voc_palette = vis.make_palette(num_classes)
-            out_im = Image.fromarray(vis.color_seg(im, voc_palette))
+            voc_palette = seg_vis.make_palette(num_classes)
+            out_im = Image.fromarray(seg_vis.color_seg(im, voc_palette))
             print(dequote(fname))
             out_im.save("{}{}_prediction.png".format(folder, dequote(fname)))
 
